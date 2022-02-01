@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 const Document = require("./Document");
+require("dotenv").config();
 
 // connection to the database
-mongoose.connect("mongodb://localhost/google-docs-clone", {
+const mongodb_url = process.env.MONGO_URL;
+mongoose.connect(mongodb_url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
@@ -12,7 +14,7 @@ mongoose.connect("mongodb://localhost/google-docs-clone", {
 // connect to the client url
 const io = require("socket.io")(3001, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.PORT || "http://localhost:3000",
     methods: ["GET", "POST"],
   },
 });
